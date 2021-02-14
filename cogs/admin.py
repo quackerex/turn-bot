@@ -35,16 +35,17 @@ class Admin(commands.Cog):
 
         await ctx.send(_text)
 
-    @commands.command(name='clear', aliases=['cls', 'purge'])
-    async def clear(self, context, limit: int):
+    @commands.command(pass_context=True, name='clear', aliases=['cls', 'purge'],)
+    async def clear(self, context, limit: int, show_embed: bool=True):
         if context.message.author.guild_permissions.administrator:
             purged_messages = await context.message.channel.purge(limit=limit)
-            embed = discord.Embed(
-                title='Nothing to see here',
-                description=f'**{context.message.author}** cleared **{len(purged_messages)}** messages!',
-                color=0x00FF00
-            )
-            await context.send(embed=embed)
+            if show_embed:
+                embed = discord.Embed(
+                    title='Nothing to see here',
+                    description=f'**{context.message.author}** cleared **{len(purged_messages)}** messages!',
+                    color=0x00FF00
+                )
+                await context.send(embed=embed, delete_after=300)
         else:
             embed = discord.Embed(
                 title='Error!',
