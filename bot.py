@@ -31,7 +31,7 @@ log.setLevel(logging.INFO)
 # log.addHandler(fh)
 
 logging.basicConfig(
-    handlers=[logging.FileHandler('logfile.log', 'w', 'utf-8')],
+    handlers=[logging.FileHandler('./logs/logfile.log', 'w', 'utf-8')],
     format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
     datefmt='%m-%d %H:%M',
     level=logging.INFO #CRITICAL ERROR WARNING  INFO    DEBUG    NOTSET 
