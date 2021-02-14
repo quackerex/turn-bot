@@ -15,7 +15,6 @@ from resources.DatabaseInterface import DatabaseInterface
 log = logging.getLogger('bot')
 
 
-
 class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -38,9 +37,9 @@ class Events(commands.Cog):
             if fetch_previous_msg:
                 await fetch_previous_msg.delete()
                 await fetch_previous_msg.channel.send('Waiting for your turn')
-        
+
         await self.bot.set_status(discord.Status.idle, 'Game haven\'t started yet', force=False)
-        
+
         log.info('Cleanup finished')
 
     @commands.Cog.listener()

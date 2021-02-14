@@ -34,7 +34,7 @@ logging.basicConfig(
     handlers=[logging.FileHandler('./logs/logfile.log', 'w', 'utf-8')],
     format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
     datefmt='%m-%d %H:%M',
-    level=logging.INFO #CRITICAL ERROR WARNING  INFO    DEBUG    NOTSET 
+    level=logging.INFO  # CRITICAL ERROR WARNING  INFO    DEBUG    NOTSET
 )
 
 log.addHandler(handler)
@@ -90,7 +90,6 @@ class Bot(commands.Bot):
         self.messages_in = self.messages_out = 0
         self.region = 'Melbourne, AU'
 
-
         try:
             self.load_extension('jishaku')
 
@@ -98,7 +97,8 @@ class Bot(commands.Bot):
             log.info('jishaku is not installed, continuing...')
 
     async def is_owner(self, user: discord.User):
-        owners = [442903946139271179, 316385640323481601, 468296341093613569, 325594915218128900]
+        owners = [442903946139271179, 316385640323481601,
+                  468296341093613569, 325594915218128900]
         for userid in owners:
             if user.id == userid:
                 return True
@@ -109,7 +109,7 @@ class Bot(commands.Bot):
     def load_config(self, filename):
         with open(filename, 'r') as f:
             return yaml.safe_load(f)
-    
+
     async def set_status(self, status, text, *, force=False):
         game = discord.Game(text)
 
