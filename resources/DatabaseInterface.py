@@ -47,6 +47,19 @@ class DatabaseInterface:
             session.close()
 
         return player
+    
+    def find_country_by_name(self, name):
+        session = self.database.Session()
+        expr = Country.name == name
+
+        try:
+            player = self.database.query_by_filter(session, Country, expr)[0]
+        except IndexError:
+            raise CountryNotFound
+        finally:
+            session.close()
+
+        return player
 
     def get_last_turn(self, country=Country):
         session = self.database.Session()

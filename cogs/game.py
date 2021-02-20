@@ -91,21 +91,28 @@ class Game(commands.Cog):
         countries = '\n'.join('' + c.name for c in countries_list)
         await ctx.send(countries)
 
-    @commands.command(pass_context=True)
     @commands.guild_only()
-    async def info(self, ctx, player: discord.Member):
+    @commands.command(pass_context=True)
+    async def info(self, ctx, player: typing.Union[discord.Member, str] = None):
         # typing.Union[discord.Member, str]
         player_country = None
 
-        if player is None:
+        if player == None:
             player = ctx.author
 
-        # if player is discord.Member:
-        try:
-            player_country = self.interface.find_country_by_player(
-                player.id)
-        except CountryNotFound:
-            return await ctx.send('That player doesn\'t have a country')
+        if isinstance(player, discord.Member):
+            try:
+                player_country = self.interface.find_country_by_player(
+                    player.id)
+            except CountryNotFound:
+                return await ctx.send('That player doesn\'t have a country')
+
+        elif isinstance(player, str):
+            try:
+                player_country = self.interface.find_country_by_name(
+                    str(player))
+            except CountryNotFound:
+                return await ctx.send('That country name does not exist')
         # else:
         #     return await ctx.send('Search Country by name is not supported yet')
 
